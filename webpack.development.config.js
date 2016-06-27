@@ -1,5 +1,6 @@
 var path    = require('path');
-
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 /**
  * Env
@@ -8,7 +9,7 @@ var path    = require('path');
 var ENV = process.env.npm_lifecycle_event;
 var isTest = ENV === 'test' || ENV === 'test-watch';
 var isProd = ENV === 'build';
-
+console.log(ENV);
 module.exports = function makeWebpackConfig () {
   /**
    * Config
@@ -27,6 +28,12 @@ module.exports = function makeWebpackConfig () {
     app: './src/app.js'
   };
 
+    /**
+     * Plugins
+     * Reference: http://webpack.github.io/docs/configuration.html#plugins
+     * List: http://webpack.github.io/docs/list-of-plugins.html
+     */
+    config.plugins = [];
 
   /**
    * Output
@@ -41,7 +48,7 @@ module.exports = function makeWebpackConfig () {
 
     // Output path from the view of the page
     // Uses webpack-dev-server in development
-    publicPath: isProd ? '/' : 'http://localhost:8080',
+    publicPath: '/',
 
     // Filename for entry points
     // Only adds hash in build mode
@@ -75,6 +82,45 @@ module.exports = function makeWebpackConfig () {
       exclude: /node_modules/
     }]
   };
+
+
+  /**
+   * Devtool
+   * Reference: http://webpack.github.io/docs/configuration.html#devtool
+   * Type of sourcemap to use per build type
+   */
+  if (isTest) {
+    config.devtool = 'inline-source-map';
+  } else if (isProd) {
+    config.devtool = 'source-map';
+  } else {
+    config.devtool = 'cheap-module-source-map';
+  }
+
+
+
+  /**
+   * Dev server configuration
+   * Reference: http://webpack.github.io/docs/configuration.html#devserver
+   * Reference: http://webpack.github.io/docs/webpack-dev-server.html
+   */
+  config.devServer = {
+    contentBase: './build',
+    host: '127.0.0.1',
+    port: 8080
+  };
+
+
+  config.plugins.push(
+
+      // Reference: https://github.com/ampedandwired/html-webpack-plugin
+      // Render index.html
+      new HtmlWebpackPlugin({
+        template: './src/index.html',
+        inject: 'body'
+      })
+
+    );
 
   return config;
 }();
