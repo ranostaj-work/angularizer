@@ -23,15 +23,22 @@ let MODULES  = CORE_MODULES.concat(APP_MODULES);
 
 angular
   .module(MODULE_NAME,MODULES)
-  .config(($stateProvider) => {
+  .config(($stateProvider, $urlRouterProvider) => {
 
-    $stateProvider.state('home', {
+    $stateProvider
+    .state('home', {
       url:'/',
-      template:'<div>HELLO</div>'
+      template:'<div>HELLO {{ctrl.data}} <a ui-sref="home.dashboard">Dashboard</a><ui-view></ui-view></div>',
+      controller: 'HomeController',
+      controllerAs: 'ctrl'
 
+    })
+    .state('home.dashboard', {
+      url:'dashboard',
+      template: '<div>DASHBOARD</div>'
     });
-
-  })
+    $urlRouterProvider.otherwise("/");
+  });
 
 
   /**

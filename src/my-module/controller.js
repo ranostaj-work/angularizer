@@ -1,12 +1,12 @@
 
+class HomeController  {
+  constructor() {
+    this.data = {name:"Dasda"};
+  }
 
-const HomeController = ($scope) => {
-   console.log($scope);
-   let $this = this;
+  loadData() {
 
-   $this.loadData = () => {
-      console.log("Load Data");
-   };
+  }
 }
 
 export default  HomeController;

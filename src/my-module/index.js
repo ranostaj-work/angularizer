@@ -3,10 +3,6 @@
 import angular from "angular";
 import  HomeController from "./controller";
 
-/**
-  Define mdule dependencies
-*/
-let dependencies = []
 
 
 // Module export
