@@ -1,7 +1,7 @@
 var path    = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-
+var optimize = require('webpack').optimize;
 /**
  * Env
  * Get npm lifecycle event to identify the environment
@@ -70,6 +70,13 @@ module.exports = function makeWebpackConfig () {
   config.module = {
     preLoaders: [],
     loaders: [{
+      test: /\.js$/,
+      exclude: /(node_modules)/,
+      loader: 'ng-annotate!babel'
+    },{
+      test: /\.html$/,
+      loader: 'ngtemplate!html-loader'
+    },{
       // JS LOADER
       // Reference: https://github.com/babel/babel-loader
       // Transpile .js files using babel-loader
@@ -77,10 +84,11 @@ module.exports = function makeWebpackConfig () {
       test: /\.js$/,
       loader: 'babel',
       query: {
-       presets: ['es2015']
+        presets: ['es2015']
       },
       exclude: /node_modules/
-    }]
+    }
+    ]
   };
 
 
@@ -119,8 +127,9 @@ module.exports = function makeWebpackConfig () {
         template: './src/index.html',
         inject: 'body'
       })
-
     );
+
+  config.plugins.push(new optimize.UglifyJsPlugin());
 
   return config;
 }();
