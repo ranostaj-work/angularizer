@@ -8,8 +8,7 @@ const Router = ($stateProvider, $urlRouterProvider) => {
 
   $stateProvider
   .state('main', {
-    url:'/',
-    template: '<main-component></main-component>'
+    url:'/'
   });
 
   $urlRouterProvider.otherwise("/");

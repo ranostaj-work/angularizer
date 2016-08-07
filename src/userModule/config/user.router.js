@@ -9,7 +9,7 @@ const Router = ($stateProvider, $urlRouterProvider) => {
   $stateProvider
   .state('user', {
     url:'/user',
-    template: '<div>User</div>'
+    template: '<create-user></create-user>'
   });
 
   $urlRouterProvider.otherwise("/");

@@ -1,3 +1,13 @@
-/**
- * Created by jan.ranostaj on 7/20/2016.
- */
+
+/*@ngInject*/
+ class UserCreateController  {
+    constructor(userModel) {
+      this.user  = userModel.loadData();
+    }
+
+    loadData() {
+        return 'data'
+    }
+}
+
+ export default UserCreateController;

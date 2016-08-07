@@ -1,51 +1,57 @@
 // Reference: http://karma-runner.github.io/0.12/config/configuration-file.html
 module.exports = function karmaConfig (config) {
   config.set({
-    frameworks: [
-      // Reference: https://github.com/karma-runner/karma-jasmine
-      // Set framework to jasmine
-      'jasmine'
-    ],
-
-    reporters: [
-      // Reference: https://github.com/mlex/karma-spec-reporter
-      // Set reporter to print detailed results to console
-      'progress',
-
-      // Reference: https://github.com/karma-runner/karma-coverage
-      // Output code coverage files
-      'coverage'
-    ],
-
+    frameworks: [ 'mocha', 'chai', 'sinon'],
+    reporters: ['mocha', 'coverage', 'threshold'],
     files: [
       // Grab all files in the app folder that contain .spec.
-      'src/tests.webpack.js'
+      'tests.bundle.js'
     ],
-
     preprocessors: {
-      // Reference: http://webpack.github.io/docs/testing.html
-      // Reference: https://github.com/webpack/karma-webpack
-      // Convert files with webpack and load sourcemaps
-      'src/tests.webpack.js': ['webpack', 'sourcemap']
+      'tests.bundle.js' : ['webpack']
     },
 
-    browsers: [
-      // Run tests using PhantomJS
-      'PhantomJS'
-    ],
+    browsers: ['Chrome'],
 
     singleRun: true,
 
+    plugins: [
+      require('karma-webpack'),
+      require('karma-chai'),
+      require('karma-sinon'),
+      require('karma-mocha'),
+      require('karma-coverage'),
+      require('karma-threshold-reporter'),
+      require('karma-chrome-launcher'),
+      require('karma-mocha-reporter')
+    ],
     // Configure code coverage reporter
     coverageReporter: {
-      dir: 'coverage/',
+      dir: 'coverage',
       reporters: [
-        {type: 'text-summary'},
-        {type: 'html'}
-      ]
+        {type: 'html', subdir: 'html'},
+        {type: 'text', subdir: '.'},
+        {type: 'lcovonly', subdir: '.'},
+        {type: 'json', subdir: '.'},
+        {type: 'cobertura', subdir: '.'}
+      ],
+      check: {
+        global: {
+          statements: 40,
+          branches: 30,
+          functions: 40,
+          lines: 40
+        }
+      },
+      watermarks: {
+        statements: [ 80, 90 ],
+        functions: [ 80, 90 ],
+        branches: [ 80, 90 ],
+        lines: [ 80, 90 ]
+      }
     },
 
-    webpack: require('./webpack.config'),
+    webpack: {},
 
     // Hide webpack build information from output
     webpackMiddleware: {

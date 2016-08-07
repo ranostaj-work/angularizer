@@ -9,7 +9,8 @@ var optimize = require('webpack').optimize;
 var ENV = process.env.npm_lifecycle_event;
 var isTest = ENV === 'test' || ENV === 'test-watch';
 var isProd = ENV === 'build';
-console.log(ENV);
+
+
 module.exports = function makeWebpackConfig () {
   /**
    * Config
@@ -75,7 +76,7 @@ module.exports = function makeWebpackConfig () {
       loader: 'ng-annotate!babel'
     },{
       test: /\.html$/,
-      loader: 'ngtemplate!html-loader'
+      loader: 'html-loader'
     },{
       // JS LOADER
       // Reference: https://github.com/babel/babel-loader

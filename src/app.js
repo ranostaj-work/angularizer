@@ -6,12 +6,14 @@ import uiRouter       from "angular-ui-router"
 import mainModule     from './mainModule/';
 import userModule     from './userModule';
 
+import models         from './models/';
+
 
 // Main module name
 const MODULE_NAME = 'app';
 
 
-let APP_MODULES   = [userModule, mainModule];
+let APP_MODULES   = [userModule, mainModule, models];
 
 let CORE_MODULES  = [uiRouter];
 

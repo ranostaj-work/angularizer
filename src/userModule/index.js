@@ -3,9 +3,7 @@
 import angular from 'angular';
 import Router         from './config/user.router';
 
-// Create Model import
-import userModel  from './models/user.model';
-
+import CreateUserComponent from './createUserComponent/create.user.component';
 
 /**
  * Module definition
@@ -14,9 +12,9 @@ import userModel  from './models/user.model';
 const module = angular.module('user.module', []);
 
 /**
- * Create Model
+ * Components
  */
-module.service('userModel',  userModel);
+module.component('createUser',CreateUserComponent);
 
 /**
  * Router
