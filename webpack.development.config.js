@@ -7,7 +7,8 @@ var optimize = require('webpack').optimize;
  * Get npm lifecycle event to identify the environment
  */
 var ENV = process.env.npm_lifecycle_event;
-var isTest = ENV === 'test' || ENV === 'test-watch';
+console.log(ENV);
+var isTest = ENV === 'test';
 var isProd = ENV === 'build';
 
 
@@ -25,7 +26,7 @@ module.exports = function makeWebpackConfig () {
    * Should be an empty object if it's generating a test build
    * Karma will set this when it's a test build
    */
-  config.entry =  {
+  config.entry = isTest ? {} : {
     app: './src/app.js'
   };
 
@@ -49,7 +50,7 @@ module.exports = function makeWebpackConfig () {
 
     // Output path from the view of the page
     // Uses webpack-dev-server in development
-    publicPath: '/',
+    publicPath: isProd ? '/' : 'http://localhost:8080/',
 
     // Filename for entry points
     // Only adds hash in build mode

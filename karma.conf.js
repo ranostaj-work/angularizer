@@ -5,10 +5,10 @@ module.exports = function karmaConfig (config) {
     reporters: ['mocha', 'coverage', 'threshold'],
     files: [
       // Grab all files in the app folder that contain .spec.
-      'tests.bundle.js'
+      './tests.bundle.js'
     ],
     preprocessors: {
-      'tests.bundle.js' : ['webpack']
+      './tests.bundle.js' : ['webpack']
     },
 
     browsers: ['Chrome'],
@@ -51,7 +51,7 @@ module.exports = function karmaConfig (config) {
       }
     },
 
-    webpack: {},
+    webpack: require('./webpack.development.config'),
 
     // Hide webpack build information from output
     webpackMiddleware: {

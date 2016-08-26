@@ -7,7 +7,8 @@
     "production": "npm run build && webpack --progress -p --config webpack.production.config.js",
     "devel": "webpack-dev-server --inline --config webpack.development.config.js",
     "build": "rimraf build",
-    "start": "npm run devel && npm run server"
+    "start": "npm run devel && npm run server",
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/ranostaj-work/angularizer#readme",
   "devDependencies": {
+    "angular-mocks": "^1.5.8",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "chai": "^3.5.0",
